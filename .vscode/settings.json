@@ -1,0 +1,8 @@
+{
+  "json.schemaDownload.enable": true,
+  "workbench.trustedDomains": [
+    "https://biomejs.dev"
+  ],
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true
+}

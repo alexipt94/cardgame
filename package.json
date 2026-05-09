@@ -1,0 +1,29 @@
+{
+  "name": "cardgame",
+  "version": "1.0.0",
+  "description": "Веб-аналог карточной стратегии Rise of Mythos.  \r Два игрока сражаются на поле из нескольких линий, разыгрывая карты существ и заклинаний.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexipt94/cardgame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexipt94/cardgame/issues"
+  },
+  "homepage": "https://github.com/alexipt94/cardgame#readme",
+  "lint-staged": {
+    "**/*.{ts,tsx,js,json}": "npx biome check --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.12",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.2"
+  }
+}
