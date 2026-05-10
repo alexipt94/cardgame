@@ -1,4 +1,4 @@
-import { HpBar } from '../../../shared/ui/hpbar/HpBar';
+import { HpBar } from '@/shared/ui/hpbar/HpBar';
 
 interface HeroProps {
   hp: number;
