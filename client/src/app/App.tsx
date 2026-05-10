@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Card, type CardProps } from '../components/Card';
+import { Hero } from '../game/hero/ui/Hero';
 
 function App() {
   const cards: CardProps[] = [
@@ -17,23 +17,10 @@ function App() {
     { name: 'Orc', cost: 7, descr: 'orc', hp: 150, attack: 55, effects: ['Stun'] },
     { name: 'Archer', cost: 3, descr: 'archer', hp: 40, attack: 25, effects: ['Bow'] },
   ];
-  const [hp, setHp] = useState(30);
 
   return (
     <section id="center">
-      <div>
-        <h2>"Hero's name"</h2>
-        <h3>{hp}</h3>
-        <button type="button" onClick={() => setHp((prevHp) => Math.max(prevHp - 5, 0))}>
-          -5 HP
-        </button>
-        <button type="button" onClick={() => setHp((prevHp) => Math.min(prevHp + 5, 30))}>
-          +5 HP
-        </button>
-        <button type="button" onClick={() => setHp(30)}>
-          Reset
-        </button>
-      </div>
+      <Hero name="Alex" hp={30} maxHp={30} />
       <div>
         {cards.map((card) => (
           <Card key={card.name} {...card} />
