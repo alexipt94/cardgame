@@ -22,8 +22,7 @@ function App() {
   return (
     <section id="center">
       <div>
-        <h2>"Hero's name"</h2>
-        <h3>{hp}</h3>
+        {hp > 0 && <Hero name="Alex" hp={hp} maxHp={30} />}
         <button type="button" onClick={() => setHp((prevHp) => Math.max(prevHp - 5, 0))}>
           -5 HP
         </button>
@@ -34,7 +33,7 @@ function App() {
           Reset
         </button>
       </div>
-      {hp > 0 && <Hero name="Alex" hp={hp} maxHp={30} />}
+
       <div>
         {cards.map((card) => (
           <Card key={card.name} {...card} />
