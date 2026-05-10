@@ -1,0 +1,15 @@
+.hpbar {
+  font-weight: 700;
+}
+
+.hpbar__healthy {
+  color: green;
+}
+
+.hpbar__warning {
+  color: orange;
+}
+
+.hpbar__danger {
+  color: red;
+}
