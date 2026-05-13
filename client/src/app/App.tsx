@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BattlePage } from '@/pages/battlepage/BattlePage';
 import { Card, type CardProps } from '../components/Card';
 import { Hero } from '../game/hero/ui/Hero';
 
@@ -19,6 +20,11 @@ function App() {
     { name: 'Archer', cost: 3, descr: 'archer', hp: 40, attack: 25, effects: ['Bow'] },
   ];
   const [hp, setHp] = useState(30);
+  const [battle, setBattle] = useState(false);
+
+  if (battle) {
+    return <BattlePage />;
+  }
   return (
     <section id="center">
       <div>
@@ -31,6 +37,9 @@ function App() {
         </button>
         <button type="button" onClick={() => setHp(30)}>
           Reset
+        </button>
+        <button type="button" onClick={() => setBattle((battle) => !battle)}>
+          Battlefield
         </button>
       </div>
 
