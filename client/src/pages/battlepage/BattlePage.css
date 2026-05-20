@@ -1,14 +1,18 @@
 .battle-page {
   display: grid;
-  grid-template-columns: clamp(72px, 8vw, 110px) minmax(0, 1fr) clamp(72px, 8vw, 110px);
-  grid-template-rows: clamp(60px, 8vh, 80px) minmax(0, 1fr) clamp(100px, 16vh, 140px);
+  grid-template-columns:
+  clamp(270px, 24vw, 370px)
+  clamp(90px, 9vw, 130px)
+  minmax(0, 1fr)
+  clamp(90px, 9vw, 130px);
+  grid-template-rows: clamp(60px, 8vh, 80px) minmax(0, 1fr) clamp(110px, 18vh, 150px);
   grid-template-areas:
-    "header header header"
-    "player field enemy"
-    "deck hand graveyard";
+    "header header header header"
+    "field field field field"
+    "chat deck hand graveyard";
 
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background-color: #111;
   color: #fff;
@@ -48,19 +52,18 @@
   min-width: 0;
 }
 
-.battle-player {
-  grid-area: player;
-  background-color: #c44;
-}
-
 .battle-field {
   grid-area: field;
-  background-color: #111744;
+  position: relative;
+  background-image: url('/assets/background/grass_bf.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.battle-enemy {
-  grid-area: enemy;
-  background-color: #4a46c7;
+.battle-chat {
+  grid-area: chat;
+  background-color: #2a1d16;
 }
 
 .battle-deck {
