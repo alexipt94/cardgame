@@ -4,7 +4,7 @@ export type BattlefieldCell = {
   col: number;
 };
 
-export function createBattlefieldCells(rows: number, cols = 12): BattlefieldCell[] {
+export function createBattlefieldCells(rows: number, cols: number): BattlefieldCell[] {
   const cells: BattlefieldCell[] = [];
 
   for (let row = 0; row < rows; row++) {

@@ -4,7 +4,12 @@ import './BattlePage.css';
 export function BattlePage() {
   // const [isDraggingCard, setIsDraggingCard] = useState(false);
   const rows = 4;
-  const cells = createBattlefieldCells(rows);
+  const colsL = 1;
+  const colsR = 1;
+  const colsC = 10;
+  const cellsL = createBattlefieldCells(rows, colsL);
+  const cellsR = createBattlefieldCells(rows, colsR);
+  const cellsC = createBattlefieldCells(rows, colsC);
   return (
     <div className="battle-page">
       <header className="battle-header battle-section">
@@ -16,12 +21,39 @@ export function BattlePage() {
       <main className="battle-field battle-section">
         <img className="battlefield-bg" src="/assets/background/grass_bf.png" alt="" />
 
-        <div className={`battlefield-grid `} style={{ gridTemplateRows: `repeat(${rows}, 1fr)` }}>
-          {cells.map((cell) => (
-            <div key={cell.id} className="battlefield-cell">
-              {cell.row}:{cell.col}
-            </div>
-          ))}
+        <div className="battlefield-layout">
+          <div
+            className="battlefield-zone battlefield-zone--left"
+            style={{ gridTemplateRows: `repeat(${rows}, 1fr)` }}
+          >
+            {cellsL.map((cell) => (
+              <div key={cell.id} className="battlefield-cell">
+                {cell.row}:{cell.col}:{'L'}
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="battlefield-play-area"
+            style={{ gridTemplateRows: `repeat(${rows}, 1fr)` }}
+          >
+            {cellsC.map((cell) => (
+              <div key={cell.id} className="battlefield-cell">
+                {cell.row}:{cell.col}:{'C'}
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="battlefield-zone battlefield-zone--right"
+            style={{ gridTemplateRows: `repeat(${rows}, 1fr)` }}
+          >
+            {cellsR.map((cell) => (
+              <div key={cell.id} className="battlefield-cell">
+                {cell.row}:{cell.col}:{'R'}
+              </div>
+            ))}
+          </div>
         </div>
       </main>
 
