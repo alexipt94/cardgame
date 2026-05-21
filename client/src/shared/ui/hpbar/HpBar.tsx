@@ -1,12 +1,12 @@
 interface HpBarProps {
-  hp: number;
+  currentHp: number;
   maxHp: number;
 }
 
 import './HpBar.css';
 
-export function HpBar({ hp, maxHp }: HpBarProps) {
-  const hpPercent = (hp / maxHp) * 100;
+export function HpBar({ currentHp, maxHp }: HpBarProps) {
+  const hpPercent = (currentHp / maxHp) * 100;
 
   let hpBarStateClass = 'hpbar__healthy';
 
@@ -18,7 +18,7 @@ export function HpBar({ hp, maxHp }: HpBarProps) {
 
   return (
     <div className={`hpbar ${hpBarStateClass}`}>
-      {hp} / {maxHp}
+      {currentHp} / {maxHp}
     </div>
   );
 }

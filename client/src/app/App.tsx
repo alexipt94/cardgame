@@ -28,7 +28,15 @@ function App() {
   return (
     <section id="center">
       <div>
-        {hp > 0 && <Hero name="Alex" hp={hp} maxHp={30} />}
+        {hp > 0 && (
+          <Hero
+            name="Alex"
+            currentHp={hp}
+            maxHp={30}
+            side="player"
+            portraitSrc="/assets/heroes/knight.png"
+          />
+        )}
         <button type="button" onClick={() => setHp((prevHp) => Math.max(prevHp - 5, 0))}>
           -5 HP
         </button>
