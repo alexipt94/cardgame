@@ -1,21 +1,20 @@
-export type BattlefieldCell = {
-  id: string;
-  row: number;
-  col: number;
-};
+import type { Battlefield } from '@/game/battlefield/model/Battlefield';
 
-export function createBattlefieldCells(rows: number, cols: number): BattlefieldCell[] {
-  const cells: BattlefieldCell[] = [];
+interface BattleFieldGridProps {
+  battlefield: Battlefield;
+}
 
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      cells.push({
-        id: `${row}-${col}`,
-        row,
-        col,
-      });
-    }
-  }
-
-  return cells;
+export function BattleFieldGrid({ battlefield }: BattleFieldGridProps) {
+  return (
+    <div
+      className="battlefield-play-area"
+      style={{ gridTemplateColumns: `repeat(${battlefield.cols}, 1fr)` }}
+    >
+      {battlefield.cells.map((cell) => (
+        <div key={cell.id} className="battlefield-cell">
+          {cell.row}:{cell.col}
+        </div>
+      ))}
+    </div>
+  );
 }

@@ -1,16 +1,14 @@
-//import { useState } from 'react';
+import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
-import { createBattlefieldCells } from './BattleFieldGrid';
+import { BattleFieldGrid } from './BattleFieldGrid';
 import './BattlePage.css';
 
 export function BattlePage() {
-  // const [isDraggingCard, setIsDraggingCard] = useState(false);
-
   const rows = 4;
   const activeRows = 3;
   const colsC = 10;
-  const cellsC = createBattlefieldCells(rows, colsC);
+  const battlefield = createBattlefield(rows, colsC);
 
   const playerHero: HeroUIModel = {
     id: 'player-hero',
@@ -85,13 +83,7 @@ export function BattlePage() {
                 ))}
               </div>
 
-              <div className="battlefield-play-area">
-                {cellsC.map((cell) => (
-                  <div key={cell.id} className="battlefield-cell">
-                    {cell.row}:{cell.col}
-                  </div>
-                ))}
-              </div>
+              <BattleFieldGrid battlefield={battlefield} />
 
               <div className="battlefield-zone battlefield-zone--right">
                 {rightHeroes.map((hero, index) => (
