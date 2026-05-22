@@ -1,44 +1,17 @@
+import { demoMission } from '@/game/battle/fixtures';
 import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
+import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
 import { BattleFieldGrid } from './BattleFieldGrid';
 import './BattlePage.css';
-
 export function BattlePage() {
-  const rows = 4;
+  const { rows, cols } = demoMission;
+
   const activeRows = 3;
-  const colsC = 10;
-  const battlefield = createBattlefield(rows, colsC);
+  const battlefield = createBattlefield(rows, cols);
 
-  const playerHero: HeroUIModel = {
-    id: 'player-hero',
-    name: 'Knight',
-    side: 'player',
-    currentHp: 28,
-    maxHp: 30,
-    portraitSrc: '/assets/heroes/knight.png',
-  };
-
-  const enemyHero: HeroUIModel = {
-    id: 'enemy-hero',
-    name: 'Ranger',
-    side: 'enemy',
-    currentHp: 24,
-    maxHp: 30,
-    portraitSrc: '/assets/heroes/ranger.png',
-  };
-
-  const bossHero: HeroUIModel = {
-    id: 'boss-hero',
-    name: 'Boss',
-    side: 'boss',
-    currentHp: 80,
-    maxHp: 100,
-    portraitSrc: '/assets/heroes/boss.png',
-  };
-
-  const isBossFight = false;
-  const rightHero = isBossFight ? bossHero : enemyHero;
+  const rightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
 
   function createHeroSlots(
     totalRows: number,

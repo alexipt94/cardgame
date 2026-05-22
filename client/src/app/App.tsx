@@ -1,24 +1,13 @@
 import { useState } from 'react';
+import { demoCards } from '@/game/card/fixtures';
+import type { CardModel } from '@/game/card/model/types';
+import { Card } from '@/game/card/ui/Card';
+import { playerHero } from '@/game/hero/fixtures';
 import { BattlePage } from '@/pages/battlepage/BattlePage';
-import { Card, type CardProps } from '../components/Card';
 import { Hero } from '../game/hero/ui/Hero';
 
 function App() {
-  const cards: CardProps[] = [
-    { name: 'Goblin', cost: 3, descr: 'Weak goblin', hp: 50, attack: 15, effects: ['Kucha'] },
-    { name: 'Knight', cost: 6, descr: 'Knight', hp: 150, attack: 45, effects: ['razgon'] },
-    {
-      name: 'Dragon',
-      cost: 9,
-      descr: 'green dragon',
-      hp: 350,
-      attack: 65,
-      effects: ['Splash attack'],
-    },
-    { name: 'Wolf', cost: 5, descr: 'wolf', hp: 90, attack: 35, effects: ['Bite'] },
-    { name: 'Orc', cost: 7, descr: 'orc', hp: 150, attack: 55, effects: ['Stun'] },
-    { name: 'Archer', cost: 3, descr: 'archer', hp: 40, attack: 25, effects: ['Bow'] },
-  ];
+  const cards: CardModel[] = demoCards;
   const [hp, setHp] = useState(30);
   const [battle, setBattle] = useState(false);
 
@@ -28,15 +17,7 @@ function App() {
   return (
     <section id="center">
       <div>
-        {hp > 0 && (
-          <Hero
-            name="Alex"
-            currentHp={hp}
-            maxHp={30}
-            side="player"
-            portraitSrc="/assets/heroes/knight.png"
-          />
-        )}
+        {hp > 0 && <Hero {...playerHero} currentHp={hp} />}
         <button type="button" onClick={() => setHp((prevHp) => Math.max(prevHp - 5, 0))}>
           -5 HP
         </button>
@@ -53,7 +34,7 @@ function App() {
 
       <div>
         {cards.map((card) => (
-          <Card key={card.name} {...card} />
+          <Card key={card.id} {...card} />
         ))}
       </div>
     </section>
