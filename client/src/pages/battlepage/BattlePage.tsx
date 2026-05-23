@@ -3,8 +3,10 @@ import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
+import { BattleStage, BattleViewport } from '@/shared/ui/battlestage';
 import { BattleFieldGrid } from './BattleFieldGrid';
 import './BattlePage.css';
+
 export function BattlePage() {
   const { rows, cols } = demoMission;
 
@@ -27,8 +29,8 @@ export function BattlePage() {
   const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
 
   return (
-    <div className="battle-screen">
-      <div className="battle-frame">
+    <BattleViewport>
+      <BattleStage>
         <div className="battle-page">
           <header className="battle-header battle-section">
             <div className="battle-header-player">Alex</div>
@@ -81,7 +83,7 @@ export function BattlePage() {
           <section className="battle-hand battle-section">Hand</section>
           <section className="battle-graveyard battle-section">Graveyard</section>
         </div>
-      </div>
-    </div>
+      </BattleStage>
+    </BattleViewport>
   );
 }
