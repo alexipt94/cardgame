@@ -8,10 +8,14 @@ export function BattleFieldGrid({ battlefield }: BattleFieldGridProps) {
   return (
     <div
       className="battlefield-play-area"
-      style={{
-        ['--battle-cols' as string]: battlefield.cols,
-        gridTemplateColumns: `repeat(var(--battle-cols), 1fr)`,
-      }}
+      style={
+        {
+          ['--battle-cols' as string]: battlefield.cols,
+          ['--battle-rows' as string]: battlefield.rows,
+          gridTemplateColumns: `repeat(${battlefield.cols}, 1fr)`,
+          gridTemplateRows: `repeat(${battlefield.rows}, 1fr)`,
+        } as React.CSSProperties
+      }
     >
       {battlefield.cells.map((cell) => (
         <div key={cell.id} className="battlefield-cell">

@@ -1,0 +1,10 @@
+.battle-stage {
+  position: relative;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  flex: 0 0 auto;
+  transform: scale(var(--stage-scale, 1));
+  transform-origin: center center;
+  background-color: #111;
+  overflow: hidden;
+}
