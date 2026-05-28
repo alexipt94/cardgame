@@ -5,3 +5,7 @@ export interface Battlefield {
   cols: number;
   cells: Cell[];
 }
+
+export function withinBounds(battlefield: Battlefield, row: number, col: number): boolean {
+  return row >= 0 && row < battlefield.rows && col >= 0 && col < battlefield.cols;
+}
