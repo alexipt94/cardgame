@@ -4,6 +4,7 @@ import { withinBounds } from './Battlefield';
 import type { Cell } from './Cell';
 import { createBattlefield } from './createBattlefield';
 import { getCell } from './getCell';
+import { occupyCell } from './occupyCell';
 
 const field: Battlefield = {
   rows: 4,
@@ -103,5 +104,23 @@ describe('createBattlefield', () => {
       expect(cell.row).toBe(expectedRow);
       expect(cell.col).toBe(expectedCol);
     });
+  });
+});
+
+describe('occupyCell', () => {
+  it('Клетка в пределах поля', () => {
+    const bf = createBattlefield(3, 3);
+    const result = occupyCell(bf, 1, 1, 'hero-1');
+    expect(getCell(result, 1, 1)?.occupantId).toBe('hero-1');
+  });
+  it('Клетка вне поля', () => {
+    const bf = createBattlefield(3, 3);
+    const result = occupyCell(bf, 5, 1, 'hero-1');
+    expect(result).toBe(bf);
+  });
+  it('Иммутабельность', () => {
+    const bf = createBattlefield(3, 3);
+    const result = occupyCell(bf, 2, 1, 'hero-1');
+    expect(getCell(bf, 2, 1)?.occupantId).toBe(null);
   });
 });
