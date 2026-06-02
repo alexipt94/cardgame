@@ -8,3 +8,7 @@ export type HeroUIModel = {
   maxHp: number;
   portraitSrc: string;
 };
+
+export type HeroSummary = Pick<HeroUIModel, 'id' | 'name'>;
+
+export type EntityId = string;

@@ -1,10 +1,11 @@
+import type { EntityId } from '@/game/hero/model/types';
 import { type Battlefield, withinBounds } from './Battlefield';
 
 export function occupyCell(
   battlefield: Battlefield,
   row: number,
   col: number,
-  occupantId: string,
+  occupantId: EntityId,
 ): Battlefield {
   if (!withinBounds(battlefield, row, col)) {
     return battlefield;
