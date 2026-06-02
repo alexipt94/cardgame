@@ -1,5 +1,5 @@
 import { demoMission } from '@/game/battle/fixtures';
-import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
+import { createBattleState } from '@/game/battle/model/BattleState';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
@@ -11,10 +11,8 @@ export function BattlePage() {
   const { rows, cols } = demoMission;
 
   const activeRows = 3;
-  const battlefield = createBattlefield(rows, cols);
-
   const rightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
-
+  const state = createBattleState(rows, cols, [playerHero, rightHero]);
   function createHeroSlots(
     totalRows: number,
     hero: HeroUIModel | null,
@@ -58,7 +56,7 @@ export function BattlePage() {
                 ))}
               </div>
 
-              <BattleFieldGrid battlefield={battlefield} />
+              <BattleFieldGrid battlefield={state.battlefield} />
 
               <div className="battlefield-zone battlefield-zone--right">
                 {rightHeroes.map((hero, index) => (
