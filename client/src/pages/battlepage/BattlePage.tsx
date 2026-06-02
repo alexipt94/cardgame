@@ -62,7 +62,12 @@ export function BattlePage() {
                 ))}
               </div>
 
-              <BattleFieldGrid battlefield={state.battlefield} />
+              <BattleFieldGrid
+                battlefield={state.battlefield}
+                onCellClick={(row, col) =>
+                  dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: playerHero.id })
+                }
+              />
 
               <div className="battlefield-zone battlefield-zone--right">
                 {rightHeroes.map((hero, index) => (

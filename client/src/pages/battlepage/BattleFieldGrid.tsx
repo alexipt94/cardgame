@@ -1,10 +1,11 @@
 import type { Battlefield } from '@/game/battlefield/model/Battlefield';
-
+import './BattlePage.css';
 interface BattleFieldGridProps {
   battlefield: Battlefield;
+  onCellClick: (row: number, col: number) => void;
 }
 
-export function BattleFieldGrid({ battlefield }: BattleFieldGridProps) {
+export function BattleFieldGrid({ battlefield, onCellClick }: BattleFieldGridProps) {
   return (
     <div
       className="battlefield-play-area"
@@ -18,9 +19,14 @@ export function BattleFieldGrid({ battlefield }: BattleFieldGridProps) {
       }
     >
       {battlefield.cells.map((cell) => (
-        <div key={cell.id} className="battlefield-cell">
+        <button
+          key={cell.id}
+          type="button"
+          className={`battlefield-cell ${cell.occupantId !== null ? 'battlefield-cell--occupied' : ''}`}
+          onClick={() => onCellClick(cell.row, cell.col)}
+        >
           {cell.row}:{cell.col}
-        </div>
+        </button>
       ))}
     </div>
   );

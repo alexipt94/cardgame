@@ -115,6 +115,9 @@
 }
 
 .battlefield-cell {
+  all: unset;
+  box-sizing: border-box; /* ← вернуть после unset */
+  cursor: pointer;
   border: 1px dashed rgba(255, 210, 210, 0.35);
   display: flex;
   align-items: center;
@@ -124,6 +127,10 @@
   color: rgba(255, 255, 255, 0.9);
   font-size: 12px;
   line-height: 1;
+}
+
+.battlefield-cell--occupied {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .battle-header .hero__portrait {
