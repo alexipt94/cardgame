@@ -1,4 +1,6 @@
+import { useReducer } from 'react';
 import { demoMission } from '@/game/battle/fixtures';
+import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
@@ -12,7 +14,11 @@ export function BattlePage() {
 
   const activeRows = 3;
   const rightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
-  const state = createBattleState(rows, cols, [playerHero, rightHero]);
+
+  const [state, dispatch] = useReducer(
+    battleReducer,
+    createBattleState(rows, cols, [playerHero, rightHero]),
+  );
   function createHeroSlots(
     totalRows: number,
     hero: HeroUIModel | null,
