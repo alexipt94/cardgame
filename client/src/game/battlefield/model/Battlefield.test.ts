@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Battlefield } from './Battlefield';
 import { withinBounds } from './Battlefield';
 import type { Cell } from './Cell';
+import { clearCell } from './clearCell';
 import { createBattlefield } from './createBattlefield';
 import { getCell } from './getCell';
 import { occupyCell } from './occupyCell';
@@ -120,7 +121,22 @@ describe('occupyCell', () => {
   });
   it('Иммутабельность', () => {
     const bf = createBattlefield(3, 3);
-    const result = occupyCell(bf, 2, 1, 'hero-1');
+    occupyCell(bf, 2, 1, 'hero-1');
     expect(getCell(bf, 2, 1)?.occupantId).toBe(null);
+  });
+});
+
+describe('clearCell', () => {
+  it('Освобождение клетки', () => {
+    const bf = createBattlefield(3, 3);
+    const bf1 = occupyCell(bf, 1, 1, 'hero-1');
+    const bf2 = clearCell(bf1, 1, 1);
+    expect(getCell(bf2, 1, 1)?.occupantId).toBe(null);
+  });
+  it('Клетка вне поля', () => {
+    const bf = createBattlefield(3, 3);
+    const occupied = occupyCell(bf, 1, 1, 'hero-1');
+    const result = clearCell(occupied, 5, 1);
+    expect(result).toBe(occupied);
   });
 });
