@@ -11,14 +11,15 @@ import './BattlePage.css';
 
 export function BattlePage() {
   const { rows, cols } = demoMission;
-
   const activeRows = 3;
-  const rightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
-
+  const initialRightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
   const [state, dispatch] = useReducer(
     battleReducer,
-    createBattleState(rows, cols, [playerHero, rightHero]),
+    createBattleState(rows, cols, [playerHero, initialRightHero]),
   );
+  const rightHero = state.heroes.find((x) => x.side === 'enemy' || x.side === 'boss') ?? null;
+  const leftHero = state.heroes.find((x) => x.side === 'player') ?? null;
+
   function createHeroSlots(
     totalRows: number,
     hero: HeroUIModel | null,
@@ -29,9 +30,9 @@ export function BattlePage() {
 
   const heroStartRow = activeRows < rows ? 1 : 0;
 
-  const leftHeroes = createHeroSlots(rows, playerHero, heroStartRow);
-  const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
+  const leftHeroes = createHeroSlots(rows, leftHero, heroStartRow);
 
+  const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
   return (
     <BattleViewport>
       <BattleStage>
@@ -39,7 +40,7 @@ export function BattlePage() {
           <header className="battle-header battle-section">
             <div className="battle-header-player">Alex</div>
             <div className="battle-header-timer">00:00</div>
-            <div className="battle-header-enemy">{rightHero.name}</div>
+            <div className="battle-header-enemy">{rightHero?.name}</div>
           </header>
 
           <main className="battle-field battle-section">
@@ -61,12 +62,13 @@ export function BattlePage() {
                   </div>
                 ))}
               </div>
-
               <BattleFieldGrid
                 battlefield={state.battlefield}
-                onCellClick={(row, col) =>
-                  dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: playerHero.id })
-                }
+                onCellClick={(row, col) => {
+                  if (!leftHero) return;
+
+                  dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: leftHero.id });
+                }}
               />
 
               <div className="battlefield-zone battlefield-zone--right">
