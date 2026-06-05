@@ -1,12 +1,6 @@
-import { type Battlefield, withinBounds } from './Battlefield';
+import type { Battlefield } from './Battlefield';
+import { updateCell } from './updateCell';
 
 export function clearCell(battlefield: Battlefield, row: number, col: number): Battlefield {
-  if (!withinBounds(battlefield, row, col)) {
-    return battlefield;
-  }
-  const targetIndex = row * battlefield.cols + col;
-  const newCells = battlefield.cells.map((cell, index) => {
-    return index === targetIndex ? { ...cell, occupantId: null } : cell;
-  });
-  return { ...battlefield, cells: newCells };
+  return updateCell(battlefield, row, col, (cell) => ({ ...cell, occupantId: null }));
 }
