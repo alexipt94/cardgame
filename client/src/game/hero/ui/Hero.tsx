@@ -3,7 +3,7 @@ import type { HeroUIModel } from '../model/types';
 import './Hero.css';
 
 // Props берём из модели — id не нужен для рендера
-type HeroProps = Omit<HeroUIModel, 'id'>;
+type HeroProps = Omit<HeroUIModel, 'id'> & { isSelected?: boolean };
 
 export function Hero({ name, side, currentHp, maxHp, portraitSrc }: HeroProps) {
   return (

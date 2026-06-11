@@ -1,13 +1,14 @@
 import type { Battlefield } from '@/game/battlefield/model/Battlefield';
 import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
-import type { HeroUIModel } from '@/game/hero/model/types';
+import type { EntityId, HeroUIModel } from '@/game/hero/model/types';
 
 export type BattleState = {
   battlefield: Battlefield;
   heroes: HeroUIModel[];
+  selectedEntityId: EntityId | null;
 };
 
 export function createBattleState(rows: number, cols: number, heroes: HeroUIModel[]): BattleState {
   const battlefield = createBattlefield(rows, cols);
-  return { battlefield, heroes };
+  return { battlefield, heroes, selectedEntityId: null };
 }
