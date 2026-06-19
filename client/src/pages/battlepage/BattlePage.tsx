@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import { demoMission } from '@/game/battle/fixtures';
 import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
+import { getAvailableCells } from '@/game/battlefield/model/getAvailableCells';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
@@ -29,10 +30,12 @@ export function BattlePage() {
   }
 
   const heroStartRow = activeRows < rows ? 1 : 0;
-
   const leftHeroes = createHeroSlots(rows, leftHero, heroStartRow);
-
   const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
+  const isPlayerSelected = leftHero?.id === state.selectedEntityId;
+  const availableCells =
+    leftHero && isPlayerSelected ? getAvailableCells(state.battlefield, 'left') : [];
+
   return (
     <BattleViewport>
       <BattleStage>
@@ -69,12 +72,14 @@ export function BattlePage() {
                   </div>
                 ))}
               </div>
+
               <BattleFieldGrid
                 battlefield={state.battlefield}
+                availableCells={availableCells}
                 onCellClick={(row, col) => {
                   if (!leftHero) return;
-
                   dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: leftHero.id });
+                  dispatch({ type: 'SELECT_ENTITY', entityId: null });
                 }}
               />
 
