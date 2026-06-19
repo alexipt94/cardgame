@@ -58,6 +58,12 @@ export function BattlePage() {
                         maxHp={hero.maxHp}
                         portraitSrc={hero.portraitSrc}
                         isSelected={hero.id === state.selectedEntityId}
+                        onSelect={() =>
+                          dispatch({
+                            type: 'SELECT_ENTITY',
+                            entityId: hero.id === state.selectedEntityId ? null : hero.id,
+                          })
+                        }
                       />
                     ) : null}
                   </div>
