@@ -57,6 +57,7 @@ export function BattlePage() {
                         currentHp={hero.currentHp}
                         maxHp={hero.maxHp}
                         portraitSrc={hero.portraitSrc}
+                        isSelected={hero.id === state.selectedEntityId}
                       />
                     ) : null}
                   </div>
@@ -81,6 +82,7 @@ export function BattlePage() {
                         currentHp={hero.currentHp}
                         maxHp={hero.maxHp}
                         portraitSrc={hero.portraitSrc}
+                        isSelected={hero.id === state.selectedEntityId}
                       />
                     ) : null}
                   </div>

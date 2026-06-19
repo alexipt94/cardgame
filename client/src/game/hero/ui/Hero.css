@@ -68,3 +68,7 @@
   max-width: 112px;
   max-height: 112px;
 }
+.hero--selected {
+  transform: translateY(-8px);
+  transition: transform 0.2s ease;
+}

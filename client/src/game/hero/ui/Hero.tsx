@@ -5,9 +5,13 @@ import './Hero.css';
 // Props берём из модели — id не нужен для рендера
 type HeroProps = Omit<HeroUIModel, 'id'> & { isSelected?: boolean };
 
-export function Hero({ name, side, currentHp, maxHp, portraitSrc }: HeroProps) {
+export function Hero({ name, side, currentHp, maxHp, portraitSrc, isSelected }: HeroProps) {
   return (
-    <article className={`hero hero--${side}`}>
+    <article
+      className={['hero', `hero--${side}`, isSelected && 'hero--selected']
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div className="hero__portrait-wrap">
         <img className="hero__portrait" src={portraitSrc} alt={name} />
       </div>
