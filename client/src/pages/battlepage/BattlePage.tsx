@@ -74,7 +74,7 @@ export function BattlePage() {
                 onCellClick={(row, col) => {
                   if (!leftHero) return;
 
-                  dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: leftHero.id });
+                  dispatch({ type: 'OCCUPY_CELL', row, col });
                 }}
               />
 
