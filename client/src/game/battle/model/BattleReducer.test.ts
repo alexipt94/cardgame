@@ -7,23 +7,28 @@ describe('battleReducer', () => {
   it('занимает пустую клетку на поле', () => {
     const state = createBattleState(3, 3, []);
     expect(getCell(state.battlefield, 1, 1)?.occupantId).toBeNull();
-    const action: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1, occupantId: 'player-1' };
-    const next = battleReducer(state, action);
-    expect(getCell(next.battlefield, 1, 1)?.occupantId).toBe('player-1');
+    const state1 = { ...state, selectedEntityId: 'test' };
+    const action: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1 };
+    const next = battleReducer(state1, action);
+    expect(next.selectedEntityId).toBeNull();
+    expect(getCell(next.battlefield, 1, 1)?.occupantId).toBe('test');
   });
   it('не мутирует исходный state', () => {
     const state = createBattleState(3, 3, []);
     const before = getCell(state.battlefield, 1, 1)?.occupantId;
-    const action: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1, occupantId: 'test' };
-    const next = battleReducer(state, action);
-    expect(getCell(state.battlefield, 1, 1)?.occupantId).toBe(before);
-    expect(next).not.toBe(state);
+    const newState = { ...state, selectedEntityId: 'test' };
+    const action: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1 };
+    const next = battleReducer(newState, action);
+    expect(getCell(newState.battlefield, 1, 1)?.occupantId).toBe(before);
+    expect(next).not.toBe(newState);
   });
   it('игнорирует координаты за границей поля', () => {
     const state = createBattleState(3, 3, []);
     const before = getCell(state.battlefield, 1, 1)?.occupantId;
-    const action: BattleAction = { type: 'OCCUPY_CELL', row: 99, col: 99, occupantId: 'test' };
-    const next = battleReducer(state, action);
+    const newState = { ...state, selectedEntityId: 'test' };
+    const action: BattleAction = { type: 'OCCUPY_CELL', row: 99, col: 99 };
+    const next = battleReducer(newState, action);
+    expect(next.selectedEntityId).toBe('test');
     expect(getCell(next.battlefield, 1, 1)?.occupantId).toBe(before);
   });
   it('неизвестный тип в экшне', () => {
@@ -38,10 +43,12 @@ describe('battleReducer', () => {
     const before0 = getCell(state.battlefield, 0, 0)?.occupantId;
     expect(before0).toBeNull();
     expect(before1).toBeNull();
-    const actionFirst: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1, occupantId: 'test1' };
-    const actionZero: BattleAction = { type: 'OCCUPY_CELL', row: 0, col: 0, occupantId: 'test0' };
-    const afterFirst = battleReducer(state, actionFirst);
-    const afterSecond = battleReducer(afterFirst, actionZero);
+    const newState = { ...state, selectedEntityId: 'test1' };
+    const actionFirst: BattleAction = { type: 'OCCUPY_CELL', row: 1, col: 1 };
+    const actionZero: BattleAction = { type: 'OCCUPY_CELL', row: 0, col: 0 };
+    const afterFirst = battleReducer(newState, actionFirst);
+    const newState1 = { ...afterFirst, selectedEntityId: 'test0' };
+    const afterSecond = battleReducer(newState1, actionZero);
     expect(getCell(afterSecond.battlefield, 1, 1)?.occupantId).toBe('test1');
     expect(getCell(afterSecond.battlefield, 0, 0)?.occupantId).toBe('test0');
   });

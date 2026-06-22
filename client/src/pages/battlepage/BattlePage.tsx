@@ -80,8 +80,8 @@ export function BattlePage() {
                 availableCells={availableCells}
                 onCellClick={(row, col) => {
                   if (!leftHero) return;
-                  dispatch({ type: 'OCCUPY_CELL', row, col, occupantId: leftHero.id });
-                  dispatch({ type: 'SELECT_ENTITY', entityId: null });
+
+                  dispatch({ type: 'OCCUPY_CELL', row, col });
                 }}
               />
 
