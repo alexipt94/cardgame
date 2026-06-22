@@ -2,7 +2,9 @@ import { useReducer } from 'react';
 import { demoMission } from '@/game/battle/fixtures';
 import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
+import { BattleHand } from '@/game/battle/ui/BattleHand';
 import { getAvailableCells } from '@/game/battlefield/model/getAvailableCells';
+import { demoCards } from '@/game/card/fixtures';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
 import type { HeroUIModel } from '@/game/hero/model/types';
 import { Hero } from '@/game/hero/ui/Hero';
@@ -16,7 +18,7 @@ export function BattlePage() {
   const initialRightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
   const [state, dispatch] = useReducer(
     battleReducer,
-    createBattleState(rows, cols, [playerHero, initialRightHero]),
+    createBattleState(rows, cols, [playerHero, initialRightHero], demoCards),
   );
   const rightHero = state.heroes.find((x) => x.side === 'enemy' || x.side === 'boss') ?? null;
   const leftHero = state.heroes.find((x) => x.side === 'player') ?? null;
@@ -104,7 +106,9 @@ export function BattlePage() {
 
           <section className="battle-chat battle-section">Chat</section>
           <section className="battle-deck battle-section">Deck</section>
-          <section className="battle-hand battle-section">Hand</section>
+          <section className="battle-hand battle-section">
+            <BattleHand hand={state.hand} cards={state.cards} />
+          </section>
           <section className="battle-graveyard battle-section">Graveyard</section>
         </div>
       </BattleStage>

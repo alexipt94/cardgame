@@ -5,3 +5,10 @@ export type MissionConfig = {
   rows: number;
   cols: number;
 };
+
+export type CardId = string;
+
+export type HandCardState = {
+  cardId: CardId;
+  countdown: number;
+};
