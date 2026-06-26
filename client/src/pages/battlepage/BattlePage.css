@@ -159,7 +159,7 @@
 .battle-hand {
   grid-area: hand;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 8px;
   min-width: 0;
   min-height: 0;

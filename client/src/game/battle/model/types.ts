@@ -12,3 +12,5 @@ export type HandCardState = {
   cardId: CardId;
   countdown: number;
 };
+
+export type HandSlot = { occupied: true; item: HandCardState } | { occupied: false; index: number };

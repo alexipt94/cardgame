@@ -1,0 +1,21 @@
+.battle-hand {
+  height: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.hand-slot {
+  flex: 0 0 calc((100% - 7 * 8px) / 8);
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.hand-slot--empty {
+  opacity: 0.3;
+  background: #222;
+}
+
+.hand-slot--occupied {
+  background: #1a3a1a;
+}
