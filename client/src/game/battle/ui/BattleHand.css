@@ -2,6 +2,8 @@
   height: 100%;
   display: flex;
   gap: 8px;
+  align-items: stretch; 
+  justify-content: flex-start; 
 }
 
 .hand-slot {
@@ -19,3 +21,4 @@
 .hand-slot--occupied {
   background: #1a3a1a;
 }
+

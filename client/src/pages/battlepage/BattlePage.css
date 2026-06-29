@@ -1,7 +1,7 @@
 .battle-page {
   display: grid;
   grid-template-columns: 340px 120px 1fr 120px;
-  grid-template-rows: 72px minmax(0, 1fr) 132px;
+  grid-template-rows: 72px minmax(0, 1fr) 180px;
   grid-template-areas:
     "header header header header"
     "field field field field"
