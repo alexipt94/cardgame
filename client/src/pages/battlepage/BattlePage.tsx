@@ -34,10 +34,10 @@ export function BattlePage() {
   const heroStartRow = activeRows < rows ? 1 : 0;
   const leftHeroes = createHeroSlots(rows, leftHero, heroStartRow);
   const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
-  const isPlayerSelected = leftHero?.id === state.selectedEntityId;
-  const availableCells =
-    leftHero && isPlayerSelected ? getAvailableCells(state.battlefield, 'left') : [];
-
+  const isHandCardSelected = state.selectedEntityId !== null;
+  const availableCells = isHandCardSelected ? getAvailableCells(state.battlefield, 'left') : [];
+  console.log('selectedEntityId:', state.selectedEntityId);
+  console.log('availableCells:', availableCells.length);
   return (
     <BattleViewport>
       <BattleStage>
@@ -62,13 +62,7 @@ export function BattlePage() {
                         currentHp={hero.currentHp}
                         maxHp={hero.maxHp}
                         portraitSrc={hero.portraitSrc}
-                        isSelected={hero.id === state.selectedEntityId}
-                        onSelect={() =>
-                          dispatch({
-                            type: 'SELECT_ENTITY',
-                            entityId: hero.id === state.selectedEntityId ? null : hero.id,
-                          })
-                        }
+                        isSelected={false}
                       />
                     ) : null}
                   </div>
@@ -107,7 +101,17 @@ export function BattlePage() {
           <section className="battle-chat battle-section">Chat</section>
           <section className="battle-deck battle-section">Deck</section>
           <section className="battle-hand battle-section">
-            <BattleHand hand={state.hand} cards={state.cards} />
+            <BattleHand
+              hand={state.hand}
+              cards={state.cards}
+              onSelect={(cardId) =>
+                dispatch({
+                  type: 'SELECT_ENTITY',
+                  entityId: cardId === state.selectedEntityId ? null : cardId,
+                })
+              }
+              selectedEntityId={state.selectedEntityId}
+            />
           </section>
           <section className="battle-graveyard battle-section">Graveyard</section>
         </div>

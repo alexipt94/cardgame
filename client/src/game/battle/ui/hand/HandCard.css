@@ -5,6 +5,7 @@
   background-image: url('/assets/card/cardExample.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  transition: transform 150ms ease-out;
 }
 
 .hand-card__name {
@@ -35,4 +36,12 @@
 .hand-card__name,
 .hand-card__countdown {
   font-family: "Press Start 2P", monospace;
+}
+
+.hand-card--selected {
+  outline: 2px solid gold;
+  outline-offset: 2px;
+  transform: translateY(-60%) scale(2);
+  transform-origin: bottom center;
+  z-index: 10;
 }

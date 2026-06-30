@@ -7,7 +7,10 @@ import { HandCard } from './hand/HandCard';
 type BattleHandProps = {
   hand: HandCardState[];
   cards: Record<CardId, CardModel>;
+  selectedEntityId: string | null;
+  onSelect: (cardId: string) => void;
 };
+
 export function BattleHand(props: BattleHandProps) {
   const slots = toHandSlots(props.hand);
   return (
@@ -15,10 +18,15 @@ export function BattleHand(props: BattleHandProps) {
       {slots.map((slot) =>
         slot.occupied ? (
           <div key={slot.item.cardId} className="hand-slot hand-slot--occupied">
-            <HandCard name={props.cards[slot.item.cardId].name} countdown={slot.item.countdown} />
+            <HandCard
+              name={props.cards[slot.item.cardId].name}
+              countdown={slot.item.countdown}
+              isSelected={slot.item.cardId === props.selectedEntityId}
+              onSelect={() => props.onSelect(slot.item.cardId)}
+            />
           </div>
         ) : (
-          <div key={slot.index} className="hand-slot hand-slot--empty"></div>
+          <div key={slot.index} className="hand-slot hand-slot--empty" />
         ),
       )}
     </>

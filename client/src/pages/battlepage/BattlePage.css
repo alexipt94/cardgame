@@ -10,7 +10,7 @@
   height: 100%;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   background-color: #111;
   color: #fff;
   box-sizing: border-box;
@@ -163,7 +163,7 @@
   gap: 8px;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   background-color: #98d498;
 }
 

@@ -20,5 +20,6 @@
 
 .hand-slot--occupied {
   background: #1a3a1a;
+  overflow: visible;
 }
 
