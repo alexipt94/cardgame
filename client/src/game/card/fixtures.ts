@@ -11,7 +11,7 @@ export const demoCards: CardModel[] = [
   {
     id: 'card-002',
     name: 'Goblin',
-    cost: 3,
+    cost: 0,
     descr: 'Weak goblin',
     hp: 50,
     attack: 15,
