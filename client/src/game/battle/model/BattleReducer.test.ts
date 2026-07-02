@@ -52,4 +52,25 @@ describe('battleReducer', () => {
     expect(getCell(afterSecond.battlefield, 1, 1)?.occupantId).toBe('test1');
     expect(getCell(afterSecond.battlefield, 0, 0)?.occupantId).toBe('test0');
   });
+  it('END_TURN меняет currentTurn на enemy', () => {
+    const state = createBattleState(3, 3, [], []);
+    const next = battleReducer(state, { type: 'END_TURN' });
+    expect(next.currentTurn).toBe('enemy');
+  });
+
+  it('ENEMY_TURN возвращает currentTurn на player', () => {
+    const state = { ...createBattleState(3, 3, [], []), currentTurn: 'enemy' as const };
+    const next = battleReducer(state, { type: 'ENEMY_TURN' });
+    expect(next.currentTurn).toBe('player');
+  });
+  it('удаляет сыгранную карту из руки', () => {
+    const card = { id: 'card-1', name: 'Test', cost: 0, descr: '' };
+    const state = {
+      ...createBattleState(3, 3, [], [card]),
+      selectedEntityId: 'card-1',
+    };
+    const next = battleReducer(state, { type: 'OCCUPY_CELL', row: 1, col: 1 });
+    expect(next.hand.find((s) => s.cardId === 'card-1')).toBeUndefined();
+    expect(next.hand.length).toBe(state.hand.length - 1);
+  });
 });

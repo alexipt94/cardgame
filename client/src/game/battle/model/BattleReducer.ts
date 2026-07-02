@@ -9,7 +9,9 @@ export type BattleAction =
       row: number;
       col: number;
     }
-  | { type: 'SELECT_ENTITY'; entityId: EntityId | null };
+  | { type: 'SELECT_ENTITY'; entityId: EntityId | null }
+  | { type: 'END_TURN' }
+  | { type: 'ENEMY_TURN' };
 
 export function battleReducer(state: BattleState, action: BattleAction): BattleState {
   switch (action.type) {
@@ -24,10 +26,17 @@ export function battleReducer(state: BattleState, action: BattleAction): BattleS
         action.col,
         state.selectedEntityId,
       );
-      return { ...state, battlefield: newBattlefield, selectedEntityId: null };
+      const newHand = state.hand.filter((slot) => slot.cardId !== state.selectedEntityId);
+      return { ...state, battlefield: newBattlefield, hand: newHand, selectedEntityId: null };
     }
     case 'SELECT_ENTITY': {
       return { ...state, selectedEntityId: action.entityId };
+    }
+    case 'END_TURN': {
+      return { ...state, currentTurn: 'enemy' };
+    }
+    case 'ENEMY_TURN': {
+      return { ...state, currentTurn: 'player' };
     }
     default:
       return state;

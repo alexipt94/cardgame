@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { demoMission } from '@/game/battle/fixtures';
 import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
@@ -20,6 +20,14 @@ export function BattlePage() {
     battleReducer,
     createBattleState(rows, cols, [playerHero, initialRightHero], demoCards),
   );
+  useEffect(() => {
+    if (state.currentTurn !== 'enemy') return;
+
+    const timer = setTimeout(() => {
+      dispatch({ type: 'ENEMY_TURN' });
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [state.currentTurn]);
   const rightHero = state.heroes.find((x) => x.side === 'enemy' || x.side === 'boss') ?? null;
   const leftHero = state.heroes.find((x) => x.side === 'player') ?? null;
 
@@ -46,6 +54,13 @@ export function BattlePage() {
             <div className="battle-header-player">Alex</div>
             <div className="battle-header-timer">00:00</div>
             <div className="battle-header-enemy">{rightHero?.name}</div>
+            <button
+              onClick={() => dispatch({ type: 'END_TURN' })}
+              disabled={state.currentTurn !== 'player'}
+              type="button"
+            >
+              End Turn
+            </button>
           </header>
 
           <main className="battle-field battle-section">

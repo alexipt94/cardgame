@@ -10,6 +10,7 @@ export type BattleState = {
   selectedEntityId: EntityId | null;
   cards: Record<CardId, CardModel>;
   hand: HandCardState[];
+  currentTurn: 'player' | 'enemy';
 };
 
 export function createBattleState(
@@ -21,5 +22,12 @@ export function createBattleState(
   const battlefield = createBattlefield(rows, cols);
   const cardsRecord = Object.fromEntries(cards.map((c) => [c.id, c]));
   const hand = cards.slice(0, 4).map((c) => ({ cardId: c.id, countdown: c.cost }));
-  return { battlefield, heroes, selectedEntityId: null, cards: cardsRecord, hand };
+  return {
+    battlefield,
+    heroes,
+    selectedEntityId: null,
+    cards: cardsRecord,
+    hand,
+    currentTurn: 'player',
+  };
 }
