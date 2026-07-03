@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './HandCard.css';
 
 interface HandCardProps {
@@ -11,7 +11,24 @@ interface HandCardProps {
 
 export function HandCard(props: HandCardProps) {
   const [shaking, setShaking] = useState(false);
+  const [decreasing, setDecreasing] = useState(false);
+  const prevCountdown = useRef<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: countdown is used as a trigger, not a value
+  useEffect(() => {
+    if (prevCountdown.current === null) {
+      prevCountdown.current = props.countdown;
+      return;
+    }
 
+    if (props.countdown < prevCountdown.current) {
+      setDecreasing(true);
+      const timer = setTimeout(() => setDecreasing(false), 600);
+      prevCountdown.current = props.countdown;
+      return () => clearTimeout(timer);
+    }
+
+    prevCountdown.current = props.countdown;
+  }, [props.countdown]);
   function handleClick() {
     if (props.countdown > 0) {
       setShaking(true);
@@ -28,7 +45,11 @@ export function HandCard(props: HandCardProps) {
       onClick={handleClick}
     >
       <span
-        className={['hand-card__countdown', shaking && 'hand-card__countdown--shake']
+        className={[
+          'hand-card__countdown',
+          shaking && 'hand-card__countdown--shake',
+          decreasing && 'hand-card__countdown--decreasing',
+        ]
           .filter(Boolean)
           .join(' ')}
       >

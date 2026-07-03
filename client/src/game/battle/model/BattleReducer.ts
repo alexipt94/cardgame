@@ -11,7 +11,8 @@ export type BattleAction =
     }
   | { type: 'SELECT_ENTITY'; entityId: EntityId | null }
   | { type: 'END_TURN' }
-  | { type: 'ENEMY_TURN' };
+  | { type: 'ENEMY_TURN' }
+  | { type: 'START_TURN' };
 
 export function battleReducer(state: BattleState, action: BattleAction): BattleState {
   switch (action.type) {
@@ -37,6 +38,14 @@ export function battleReducer(state: BattleState, action: BattleAction): BattleS
     }
     case 'ENEMY_TURN': {
       return { ...state, currentTurn: 'player' };
+    }
+    case 'START_TURN': {
+      console.log('start turn', state.hand);
+      const hand = state.hand.map((card) => ({
+        ...card,
+        countdown: Math.max(0, card.countdown - 1),
+      }));
+      return { ...state, hand };
     }
     default:
       return state;

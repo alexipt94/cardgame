@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { demoMission } from '@/game/battle/fixtures';
 import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
@@ -22,12 +22,19 @@ export function BattlePage() {
   );
   useEffect(() => {
     if (state.currentTurn !== 'enemy') return;
-
     const timer = setTimeout(() => {
       dispatch({ type: 'ENEMY_TURN' });
     }, 1500);
     return () => clearTimeout(timer);
   }, [state.currentTurn]);
+  useEffect(() => {
+    if (state.currentTurn === 'player' && prevTurn.current === 'enemy') {
+      console.log('START_TURN dispatching');
+      dispatch({ type: 'START_TURN' });
+    }
+    prevTurn.current = state.currentTurn;
+  }, [state.currentTurn]);
+  const prevTurn = useRef<string | null>(null);
   const rightHero = state.heroes.find((x) => x.side === 'enemy' || x.side === 'boss') ?? null;
   const leftHero = state.heroes.find((x) => x.side === 'player') ?? null;
 
