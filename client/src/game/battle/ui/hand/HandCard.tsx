@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { canSelectCard } from '../../model/canSelectCard';
 import './HandCard.css';
 
 interface HandCardProps {
@@ -30,7 +31,7 @@ export function HandCard(props: HandCardProps) {
     prevCountdown.current = props.countdown;
   }, [props.countdown]);
   function handleClick() {
-    if (props.countdown > 0) {
+    if (!canSelectCard(props.countdown)) {
       setShaking(true);
       setTimeout(() => setShaking(false), 600);
       return;

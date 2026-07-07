@@ -7,8 +7,8 @@ import { HandCard } from './hand/HandCard';
 type BattleHandProps = {
   hand: HandCardState[];
   cards: Record<CardId, CardModel>;
-  selectedEntityId: string | null;
   onSelect: (cardId: string) => void;
+  selectedCardId: CardId | null;
 };
 
 export function BattleHand(props: BattleHandProps) {
@@ -21,7 +21,7 @@ export function BattleHand(props: BattleHandProps) {
             <HandCard
               name={props.cards[slot.item.cardId].name}
               countdown={slot.item.countdown}
-              isSelected={slot.item.cardId === props.selectedEntityId}
+              isSelected={slot.item.cardId === props.selectedCardId}
               onSelect={() => props.onSelect(slot.item.cardId)}
             />
           </div>

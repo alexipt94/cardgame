@@ -7,6 +7,7 @@ import type { CardId, HandCardState } from './types';
 export type BattleState = {
   battlefield: Battlefield;
   heroes: HeroUIModel[];
+  selectedCardId: CardId | null;
   selectedEntityId: EntityId | null;
   cards: Record<CardId, CardModel>;
   hand: HandCardState[];
@@ -26,6 +27,7 @@ export function createBattleState(
     battlefield,
     heroes,
     selectedEntityId: null,
+    selectedCardId: null,
     cards: cardsRecord,
     hand,
     currentTurn: 'player',

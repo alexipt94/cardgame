@@ -3,6 +3,7 @@ import { demoMission } from '@/game/battle/fixtures';
 import { battleReducer } from '@/game/battle/model/BattleReducer';
 import { createBattleState } from '@/game/battle/model/BattleState';
 import { BattleHand } from '@/game/battle/ui/BattleHand';
+import { BATTLE_ACTIVE_ROWS } from '@/game/battlefield/model/constants';
 import { getAvailableCells } from '@/game/battlefield/model/getAvailableCells';
 import { demoCards } from '@/game/card/fixtures';
 import { bossHero, enemyHero, playerHero } from '@/game/hero/fixtures';
@@ -11,10 +12,9 @@ import { Hero } from '@/game/hero/ui/Hero';
 import { BattleStage, BattleViewport } from '@/shared/ui/battlestage';
 import { BattleFieldGrid } from './BattleFieldGrid';
 import './BattlePage.css';
-
 export function BattlePage() {
-  const { rows, cols } = demoMission;
-  const activeRows = 3;
+  const { rows, cols, playerSide } = demoMission;
+  const activeRows = BATTLE_ACTIVE_ROWS;
   const initialRightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
   const [state, dispatch] = useReducer(
     battleReducer,
@@ -29,7 +29,6 @@ export function BattlePage() {
   }, [state.currentTurn]);
   useEffect(() => {
     if (state.currentTurn === 'player' && prevTurn.current === 'enemy') {
-      console.log('START_TURN dispatching');
       dispatch({ type: 'START_TURN' });
     }
     prevTurn.current = state.currentTurn;
@@ -49,10 +48,8 @@ export function BattlePage() {
   const heroStartRow = activeRows < rows ? 1 : 0;
   const leftHeroes = createHeroSlots(rows, leftHero, heroStartRow);
   const rightHeroes = createHeroSlots(rows, rightHero, heroStartRow);
-  const isHandCardSelected = state.selectedEntityId !== null;
-  const availableCells = isHandCardSelected ? getAvailableCells(state.battlefield, 'left') : [];
-  console.log('selectedEntityId:', state.selectedEntityId);
-  console.log('availableCells:', availableCells.length);
+  const isHandCardSelected = state.selectedCardId !== null;
+  const availableCells = isHandCardSelected ? getAvailableCells(state.battlefield, playerSide) : [];
   return (
     <BattleViewport>
       <BattleStage>
@@ -128,11 +125,11 @@ export function BattlePage() {
               cards={state.cards}
               onSelect={(cardId) =>
                 dispatch({
-                  type: 'SELECT_ENTITY',
-                  entityId: cardId === state.selectedEntityId ? null : cardId,
+                  type: 'SELECT_CARD',
+                  cardId: cardId === state.selectedCardId ? null : cardId,
                 })
               }
-              selectedEntityId={state.selectedEntityId}
+              selectedCardId={state.selectedCardId}
             />
           </section>
           <section className="battle-graveyard battle-section">Graveyard</section>
