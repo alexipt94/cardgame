@@ -1,6 +1,7 @@
 import { canPlaceEntity } from '@/game/battlefield/model/canPlaceEntity';
 import { occupyCell } from '@/game/battlefield/model/occupyCell';
 import type { EntityId } from '@/game/hero/model/types';
+import { createUnitFromCard } from '@/game/unit/model/createUnitFromCard';
 import type { BattleState } from './BattleState';
 import type { CardId } from './types';
 
@@ -16,20 +17,24 @@ export type BattleAction =
 export function battleReducer(state: BattleState, action: BattleAction): BattleState {
   switch (action.type) {
     case 'OCCUPY_CELL': {
-      // Выставить на поле можно только выбранную карту из руки, а не выбранного героя/юнита
-      // на поле — поэтому теперь читается selectedCardId, а не selectedEntityId.
       if (!state.selectedCardId) return state;
       if (!canPlaceEntity(state.battlefield, action.row, action.col)) {
         return state;
       }
-      const newBattlefield = occupyCell(
-        state.battlefield,
-        action.row,
-        action.col,
-        state.selectedCardId,
-      );
+      const card = state.cards[state.selectedCardId];
+      if (card.kind !== 'unit') return state;
+      const unit = createUnitFromCard(card, state.playerSide);
+
+      const newBattlefield = occupyCell(state.battlefield, action.row, action.col, unit.id);
+
       const newHand = state.hand.filter((slot) => slot.cardId !== state.selectedCardId);
-      return { ...state, battlefield: newBattlefield, hand: newHand, selectedCardId: null };
+      return {
+        ...state,
+        battlefield: newBattlefield,
+        hand: newHand,
+        selectedCardId: null,
+        units: { ...state.units, [unit.id]: unit },
+      };
     }
     case 'SELECT_CARD': {
       return { ...state, selectedCardId: action.cardId };

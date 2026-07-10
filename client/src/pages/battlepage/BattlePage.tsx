@@ -18,7 +18,7 @@ export function BattlePage() {
   const initialRightHero = demoMission.mode === 'boss' ? bossHero : enemyHero;
   const [state, dispatch] = useReducer(
     battleReducer,
-    createBattleState(rows, cols, [playerHero, initialRightHero], demoCards),
+    createBattleState(rows, cols, [playerHero, initialRightHero], demoCards, playerSide),
   );
   useEffect(() => {
     if (state.currentTurn !== 'enemy') return;

@@ -2,7 +2,8 @@ import type { Battlefield } from '@/game/battlefield/model/Battlefield';
 import { createBattlefield } from '@/game/battlefield/model/createBattlefield';
 import type { CardModel } from '@/game/card/model/types';
 import type { EntityId, HeroUIModel } from '@/game/hero/model/types';
-import type { CardId, HandCardState } from './types';
+import type { UnitId, UnitModel } from '@/game/unit/model/UnitModel';
+import type { CardId, HandCardState, PlayerSide } from './types';
 
 export type BattleState = {
   battlefield: Battlefield;
@@ -12,6 +13,8 @@ export type BattleState = {
   cards: Record<CardId, CardModel>;
   hand: HandCardState[];
   currentTurn: 'player' | 'enemy';
+  playerSide: PlayerSide;
+  units: Record<UnitId, UnitModel>;
 };
 
 export function createBattleState(
@@ -19,6 +22,7 @@ export function createBattleState(
   cols: number,
   heroes: HeroUIModel[],
   cards: CardModel[],
+  playerSide: PlayerSide,
 ): BattleState {
   const battlefield = createBattlefield(rows, cols);
   const cardsRecord = Object.fromEntries(cards.map((c) => [c.id, c]));
@@ -31,5 +35,7 @@ export function createBattleState(
     cards: cardsRecord,
     hand,
     currentTurn: 'player',
+    playerSide,
+    units: {},
   };
 }
