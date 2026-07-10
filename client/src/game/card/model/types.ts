@@ -19,6 +19,7 @@ export type UnitCard = {
   name: string;
   cost: number;
   hp: number;
+  armor?: number;
   attack: number;
   effects?: CardEffectType[];
   descr: string;

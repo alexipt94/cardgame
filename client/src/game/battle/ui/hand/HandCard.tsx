@@ -14,7 +14,7 @@ export function HandCard(props: HandCardProps) {
   const [shaking, setShaking] = useState(false);
   const [decreasing, setDecreasing] = useState(false);
   const prevCountdown = useRef<number | null>(null);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: countdown is used as a trigger, not a value
+
   useEffect(() => {
     if (prevCountdown.current === null) {
       prevCountdown.current = props.countdown;
