@@ -90,6 +90,7 @@ export function BattlePage() {
 
               <BattleFieldGrid
                 battlefield={state.battlefield}
+                units={state.units}
                 availableCells={availableCells}
                 onCellClick={(row, col) => {
                   if (!leftHero) return;

@@ -10,6 +10,7 @@ export type UnitStatus = {
 export type UnitModel = {
   id: UnitId;
   cardId: CardId;
+  name: string;
   ownerSide: PlayerSide;
   hp: number;
   maxHp: number;

@@ -1,14 +1,19 @@
 import type { Battlefield } from '@/game/battlefield/model/Battlefield';
 import type { Cell } from '@/game/battlefield/model/Cell';
 import './BattlePage.css';
+import { UnitOnCell } from '@/game/battle/ui/unit/UnitOnCell';
+import type { UnitId, UnitModel } from '@/game/unit/model/UnitModel';
+
 interface BattleFieldGridProps {
   battlefield: Battlefield;
+  units: Record<UnitId, UnitModel>;
   onCellClick: (row: number, col: number) => void;
   availableCells: Cell[];
 }
 
 export function BattleFieldGrid({
   battlefield,
+  units,
   onCellClick,
   availableCells,
 }: BattleFieldGridProps) {
@@ -26,7 +31,7 @@ export function BattleFieldGrid({
     >
       {battlefield.cells.map((cell) => {
         const isAvailable = availableCells.some((c) => c.id === cell.id);
-
+        const unit = cell.occupantId ? units[cell.occupantId] : null;
         return (
           <button
             key={cell.id}
@@ -41,7 +46,7 @@ export function BattleFieldGrid({
             disabled={!isAvailable}
             onClick={isAvailable ? () => onCellClick(cell.row, cell.col) : undefined}
           >
-            {cell.row}:{cell.col}
+            {unit ? <UnitOnCell unit={unit} /> : `${cell.row}:${cell.col}`}
           </button>
         );
       })}

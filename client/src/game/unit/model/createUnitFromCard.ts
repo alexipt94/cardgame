@@ -8,6 +8,7 @@ export function createUnitFromCard(card: UnitCard, ownerSide: PlayerSide): UnitM
   return {
     id: crypto.randomUUID(),
     cardId: card.id,
+    name: card.name,
     ownerSide,
     hp: card.hp,
     maxHp: card.hp,

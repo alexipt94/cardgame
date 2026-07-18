@@ -1,0 +1,60 @@
+.unit-on-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  font-family: "Press Start 2P", monospace;
+}
+
+.unit-on-cell__attack {
+  align-self: flex-end;
+  color: #f0c44c;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.unit-on-cell__name {
+  max-width: 100%;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 9px;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.unit-on-cell__vitals {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.unit-on-cell__armor {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 2px 4px;
+  box-sizing: border-box;
+  color: #78b9ff;
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.72);
+  text-shadow:
+    1px 1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    -1px -1px 0 #000;
+}
+
+.unit-on-cell__statuses {
+  color: #c9a0ff;
+  font-size: 8px;
+  line-height: 1;
+}
