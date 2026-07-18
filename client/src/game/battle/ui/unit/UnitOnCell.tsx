@@ -16,6 +16,7 @@ export function UnitOnCell({ unit }: UnitOnCellProps) {
         {unit.maxArmor > 0 ? <span className="unit-on-cell__armor">🛡 {unit.armor}</span> : null}
       </div>
       {unit.statuses.length > 0 ? <div className="unit-on-cell__statuses">{'статусы'}</div> : null}
+      <img className="unit-on-cell__sprite" src={unit.spriteSrc} alt={unit.name} />
     </article>
   );
 }

@@ -16,5 +16,6 @@ export function createUnitFromCard(card: UnitCard, ownerSide: PlayerSide): UnitM
     maxArmor: armor,
     atk: card.attack,
     statuses: [],
+    spriteSrc: card.unitSpriteSrc,
   };
 }

@@ -18,6 +18,8 @@ export const demoCards: CardModel[] = [
     hp: 50,
     attack: 15,
     effects: ['swarm'],
+    unitSpriteSrc: '/assets/card/units/goblin.png',
+    artSrc: '/assets/card/art/goblin.png',
   },
   {
     kind: 'unit',
@@ -28,6 +30,8 @@ export const demoCards: CardModel[] = [
     hp: 150,
     attack: 45,
     effects: ['acceleration'],
+    unitSpriteSrc: '/assets/card/units/placeholder.png',
+    artSrc: '/assets/card/art/placeholder.png',
   },
   {
     kind: 'unit',
@@ -38,6 +42,8 @@ export const demoCards: CardModel[] = [
     hp: 350,
     attack: 65,
     effects: ['splashAttack'],
+    unitSpriteSrc: '/assets/card/units/placeholder.png',
+    artSrc: '/assets/card/art/placeholder.png',
   },
   {
     kind: 'unit',
@@ -48,6 +54,8 @@ export const demoCards: CardModel[] = [
     hp: 90,
     attack: 35,
     effects: ['bite'],
+    unitSpriteSrc: '/assets/card/units/placeholder.png',
+    artSrc: '/assets/card/art/placeholder.png',
   },
   {
     kind: 'unit',
@@ -58,6 +66,8 @@ export const demoCards: CardModel[] = [
     hp: 150,
     attack: 55,
     effects: ['stun'],
+    unitSpriteSrc: '/assets/card/units/placeholder.png',
+    artSrc: '/assets/card/art/placeholder.png',
   },
   {
     kind: 'unit',
@@ -68,5 +78,7 @@ export const demoCards: CardModel[] = [
     hp: 40,
     attack: 25,
     effects: ['bow'],
+    unitSpriteSrc: '/assets/card/units/placeholder.png',
+    artSrc: '/assets/card/art/placeholder.png',
   },
 ];

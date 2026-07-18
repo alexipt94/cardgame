@@ -8,6 +8,8 @@ interface HandCardProps {
   isSelected: boolean;
   isShaking?: boolean;
   onSelect: () => void;
+  artSrc: '/assets/card/art/goblin.png';
+  unitSpriteSrc: '/assets/card/units/goblin.png';
 }
 
 export function HandCard(props: HandCardProps) {
@@ -57,6 +59,7 @@ export function HandCard(props: HandCardProps) {
         {props.countdown}
       </span>
       <span className="hand-card__name">{props.name}</span>
+      <img className="hand-card__art" src={props.artSrc} alt={props.name} />
     </button>
   );
 }

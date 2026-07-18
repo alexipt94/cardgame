@@ -23,6 +23,8 @@ export type UnitCard = {
   attack: number;
   effects?: CardEffectType[];
   descr: string;
+  artSrc: string;
+  unitSpriteSrc: string;
 };
 
 export type CardModel = SpellCard | UnitCard;

@@ -18,4 +18,5 @@ export type UnitModel = {
   maxArmor: number;
   atk: number;
   statuses: UnitStatus[];
+  spriteSrc: string;
 };
